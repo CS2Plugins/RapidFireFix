@@ -1,10 +1,5 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text;
-using CounterStrikeSharp.API;
-using CounterStrikeSharp.API.Core;
+﻿using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
-using CounterStrikeSharp.API.Modules.Cvars;
-using CounterStrikeSharp.API.Modules.Entities;
 
 namespace RapidFireFix;
 
@@ -15,28 +10,6 @@ public class RapidFireFix : BasePlugin
     public override string ModuleVersion => "1.0.0";
 
     public override string ModuleAuthor => "jon";
-
-    /*
-    public override void Load(bool hotReload)
-    {
-        
-        Server.NextWorldUpdate(() => {
-            ConVar? tags = ConVar.Find("sv_tags");
-            
-            if (tags != null) {
-
-                if (tags.StringValue == null) {
-                    Server.ExecuteCommand("sv_tags rapidfirefix");
-                } else if (!tags.StringValue.Contains("rapidfirefix")) {
-                    Server.ExecuteCommand("sv_tags " + (tags.StringValue == "" ? "" : tags.StringValue + ",") + "rapidfirefix");
-                }
-            }
-        });
-        
-
-        base.Load(hotReload);
-    }
-    */
 
     [GameEventHandler]
     public HookResult OnEventBulletFlightResolution(EventBulletFlightResolution @event, GameEventInfo info)
