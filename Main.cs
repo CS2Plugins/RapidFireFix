@@ -12,20 +12,20 @@ public class RapidFireFix : BasePlugin
 
     public override string ModuleAuthor => "jon";
 
-    [GameEventHandler]
-	public HookResult OnEvent(EventWeaponFire @event, GameEventInfo info)
+	[GameEventHandler]
+	public HookResult OnBulletImpact(EventBulletImpact evt, GameEventInfo info)
 	{
-		if (@event.Userid?.Pawn?.Value?.WeaponServices?.ActiveWeapon?.Value == null)
+		if (evt.Userid?.Pawn?.Value?.WeaponServices?.ActiveWeapon?.Value == null)
 			return HookResult.Continue;
 
-		CBasePlayerWeapon firedWeapon = @event.Userid.Pawn.Value.WeaponServices.ActiveWeapon.Value!;
+		CBasePlayerWeapon firedWeapon = evt.Userid.Pawn.Value.WeaponServices.ActiveWeapon.Value!;
 
 		CCSWeaponBaseVData? weaponData = firedWeapon.GetVData<CCSWeaponBaseVData>();
 
 		if (weaponData == null)
 			return HookResult.Continue;
 
-		int tickBase = (int)@event.Userid.TickBase;
+		int tickBase = (int)evt.Userid.TickBase;
 
 		int fixedPrimaryTick = (int)Math.Round(weaponData.CycleTime.Values[0] * 64) - 3;
 		firedWeapon.NextPrimaryAttackTick = Math.Max(firedWeapon.NextPrimaryAttackTick, tickBase + fixedPrimaryTick);
